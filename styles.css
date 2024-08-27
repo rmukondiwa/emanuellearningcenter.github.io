@@ -68,7 +68,7 @@ footer {
 /* Hero section with background image */
 .hero-section {
     height: 100vh; /* Full height of the viewport */
-    background-image: url('IMG_7613 2.jpeg'); /* Replace with the correct path */
+    background-image: url('/IMG_7613 2.jpeg'); /* Replace with the correct path */
     background-size: cover;
     background-position: center;
     position: relative;
