@@ -1,0 +1,368 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+.padding-top {
+    padding-top: 65px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+
+}
+
+header {
+    background-color: #e7f2f8b4; /* Semi-transparent black */
+    color: #fff;
+    padding: 10px 0;
+    position: fixed; /* Keeps the nav bar at the top while scrolling */
+    width: 100%;
+    z-index: 1000; /* Ensures it stays on top of other content */
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center; /* Center align the nav bar */
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #1d1c1c;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.15rem;
+    /* font-weight: bold; */
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+    background-color: #74BDCB; /* Semi-transparent blue on hover */
+    font-weight: bold;
+}
+
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Hero section with background image */
+.hero-section {
+    height: 100vh; /* Full height of the viewport */
+    background-image: url('images/IMG_7613 2.jpeg'); /* Replace with the correct path */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(137, 137, 137, 0.482); /* Black overlay */
+}
+.hero-content {
+    position: relative;
+    z-index: 1;
+    color: #ffffff;
+    text-align: center;
+    padding: 0px;
+}
+
+.hero-content h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 6rem; /* Adjust size as needed */
+    margin: 0;
+    text-transform: uppercase; /* Optional: Makes the title all caps */
+}
+
+.hero-content p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 3rem;
+    margin-top: 20px;
+}
+/* Hero button */
+.hero-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 15px 30px;
+    background-color: #FFA384;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.9rem;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-bottom: 20px;
+}
+
+.hero-button:hover {
+    background-color: #918874; /* Darker blue on hover */
+    transform: translateY(-3px); /* Slight lift effect on hover */
+}
+
+/* Mission section */
+.mission-section {
+    background-color: rgb(255, 255, 255);
+    color: #204d56;
+    text-align: center;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    flex-direction: column; /* Ensure content stacks vertically */
+    min-height: 40vh; /* Adjust the height to your preference */
+}
+
+.mission-section h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.75rem;
+    margin-bottom: 10px;
+}
+
+.mission-section p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5rem;
+    max-width: 900px;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 50px;
+}
+
+
+/* Navigation Buttons */
+.prev-button,
+.next-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 50%;
+}
+
+.prev-button {
+    left: 10px;
+}
+
+.next-button {
+    right: 10px;
+}
+
+.prev-button:hover,
+.next-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Testimony section */
+.testimony-section {
+    font-family: 'Montserrat', sans-serif;
+    padding: 50px 20px;
+    background-color: #EFE7BC;
+    color: #2e2e2e;
+    text-align: center;
+}
+
+.testimony-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+}
+
+.testimony-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap; /* Ensures responsiveness */
+}
+
+.testimony {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    padding: 30px;
+    max-width: 25%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Space between rows if it wraps on smaller screens */
+}
+
+.testimony p {
+    font-size: 1.25rem;
+    line-height: 1.5;
+}
+.stars {
+    color: gold;
+    font-size: 2rem; /* Adjust size as needed */
+    margin-top: 10px; /* Space between the author and stars */
+}
+.testimony-button-container {
+    margin-top: 30px;
+    text-align: center;
+}
+
+/* Map section */
+.map-section {
+    padding: 50px 20px;
+    background-color: #f4f4f4;
+    color: #333;
+    text-align: center;
+}
+
+.map-section h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.map-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.map-container iframe {
+    border: 0;
+    width: 100%;
+    max-width: 1000px;
+    height: 450px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+/* Gallery section */
+.gallery-section {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the gallery horizontally */
+    padding: 50px 20px;
+    background-color: #74bccb83;
+    color: #1d1c1c;
+}
+
+.gallery-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center images within the container */
+    gap: 20px;
+}
+
+.slideshow {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center the gallery images */
+}
+
+.gallery-image {
+    width: calc(30% - 10px);
+    border: 5px solid #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.gallery-image:hover {
+    transform: scale(1.05);
+}
+
+/* About Us / Contact Us Section */
+.about-contact-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* padding: 50px 20px; */
+    background-color: #f4f4f4;
+    color: #333;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+.about-container{
+    flex: 1;
+    max-width: 80%;
+    margin-top: 20px;
+}
+
+.about-container h2{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: 0px;
+}
+
+.about-container p{
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.25rem;
+    line-height: 1.75;
+}
+
+/* Media Queries for different screen sizes */
+@media (max-width: 1024px) {
+    .testimony-section h2 {
+        font-size: 2.25rem; /* Slightly smaller on medium screens */
+    }
+
+    .testimony p {
+        font-size: 1.15rem; /* Slightly smaller on medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .testimony-section h2 {
+        font-size: 2rem; /* Smaller font size on tablets */
+    }
+
+    .testimony p {
+        font-size: 1rem; /* Smaller font size on tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .testimony-section h2 {
+        font-size: 1.75rem; /* Smallest font size on mobile */
+    }
+
+    .testimony p {
+        font-size: 0.9rem; /* Smallest font size on mobile */
+    }
+}
+.language-button {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    padding: 10px 15px;
+    background-color: #FFA384;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.language-button:hover {
+    background-color: #918874;
+}
