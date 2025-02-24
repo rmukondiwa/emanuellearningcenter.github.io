@@ -111,7 +111,14 @@ document.addEventListener('DOMContentLoaded', function () {
     translatePage(currentLanguage);
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector(".blog-form");
 
+    form.addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent actual form submission
+        window.location.href = "blogposts.html"; // Redirect to blogposts.html
+    });
+});
 
 document.addEventListener('DOMContentLoaded', function() {
     const currentPage = window.location.pathname.split('/').pop();

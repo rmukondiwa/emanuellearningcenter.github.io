@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Emanuel Learning Center</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <style>
+        .blog-section {
+            padding: 120px 20px 60px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .blog-section h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            color: #FFA384;
+            margin-bottom: 1rem;
+        }
+
+        .blog-section p {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.1rem;
+            color: #4b5563;
+            margin-bottom: 2rem;
+        }
+
+        .blog-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            color: #374151;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            min-height: 200px;
+            resize: vertical;
+        }
+
+        .submit-button {
+            background-color: #FFA384;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-button:hover {
+            background-color: #4f46e5;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="volunteer.html">Volunteer</a></li>
+                <li><a href="tutoring.html">Tutoring</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
+            </ul>
+        </nav>
+        <button id="language-toggle" class="language-button">Español</button>
+    </header>
+
+    <main>
+        <section class="blog-section">
+            <h1>Share Your Insights</h1>
+            <p>Contribute to our community by submitting your blog post. Your insights could help fellow learners. Posts are reviewed by admins before publication.</p>
+            
+            <form class="blog-form">
+                <div class="form-group">
+                    <label for="blog-title">Blog Title</label>
+                    <input type="text" id="blog-title" name="blog-title" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="author-name">Author Name (Optional)</label>
+                    <input type="text" id="author-name" name="author-name">
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" name="category" required>
+                        <option value="">Select a category</option>
+                        <option value="parent">Parent</option>
+                        <option value="student">Student</option>
+                        <option value="volunteer">Volunteer</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="content">Blog Content</label>
+                    <textarea id="content" name="content" placeholder="Write your content here..." required></textarea>
+                </div>
+
+                <button type="submit" class="submit-button">Submit Now</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Emanuel Learning Center</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
