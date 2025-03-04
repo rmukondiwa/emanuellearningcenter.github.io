@@ -45,42 +45,60 @@
             font-family: 'Montserrat', sans-serif;
         }
 
-        .tag-success { background: #dcfce7; color: #166534; }
-        .tag-tutoring { background: #dbeafe; color: #1e40af; }
-        .tag-community { background: #fef3c7; color: #92400e; }
-        .tag-events { background: #fce7f3; color: #831843; }
+        .tag-parent { background: #dbeafe; color: #1e40af; }
+        .tag-volunteer { background: #fef3c7; color: #92400e; }
+        .tag-student { background: #dcfce7; color: #166534; }
 
         .category-tag:hover {
             filter: brightness(0.95);
         }
 
-        /* Featured Post */
-        .featured-post {
+        /* Big Create Blog Button */
+        .create-blog-container {
             background: #74BDCB;
             border-radius: 12px;
-            padding: 2rem;
+            padding: 2.5rem;
             margin-bottom: 3rem;
-            color: white;
+            text-align: center;
             position: relative;
             overflow: hidden;
         }
 
-        .featured-post::before {
-            content: "Featured Post";
-            position: absolute;
-            top: 1rem;
-            right: -2rem;
-            background: #FFA384;
-            padding: 0.5rem 3rem;
-            transform: rotate(45deg);
-            font-size: 0.8rem;
+        .big-create-blog-button {
+            display: inline-block;
+            background-color: #FFA384;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: bold;
+            font-size: 1.5rem;
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .big-create-blog-button:hover {
+            background-color: #e88f72;
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .create-blog-container h2 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
             font-family: 'Montserrat', sans-serif;
         }
 
-        .featured-post h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            font-family: 'Montserrat', sans-serif;
+        .create-blog-container p {
+            color: white;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         /* Blog Grid */
@@ -170,8 +188,13 @@
         }
 
         @media (max-width: 768px) {
-            .featured-post h2 {
-                font-size: 2rem;
+            .create-blog-container h2 {
+                font-size: 1.75rem;
+            }
+
+            .big-create-blog-button {
+                font-size: 1.25rem;
+                padding: 0.75rem 1.5rem;
             }
 
             .blog-grid {
@@ -187,7 +210,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="volunteer.html">Volunteer</a></li>
                 <li><a href="tutoring.html">Tutoring</a></li>
-                <li><a href="blog.html" class="active">Blog</a></li>
+                <li><a href="blogposts.html" class="active">Blog</a></li>
             </ul>
         </nav>
         <button id="language-toggle" class="language-button">Español</button>
@@ -199,25 +222,18 @@
             <div class="search-filter">
                 <input type="text" placeholder="Search blog posts...">
                 <div class="category-filters">
-                    <span class="category-tag tag-success">Success Stories</span>
-                    <span class="category-tag tag-tutoring">Tutoring Tips</span>
-                    <span class="category-tag tag-community">Community</span>
-                    <span class="category-tag tag-events">Events</span>
+                    <span class="category-tag tag-parent">Parent</span>
+                    <span class="category-tag tag-volunteer">Volunteer</span>
+                    <span class="category-tag tag-student">Student</span>
                 </div>
             </div>
 
-            <!-- Featured Post -->
-            <article class="featured-post">
-                <h2>The Impact of One-on-One Tutoring: A Success Story</h2>
-                <div class="blog-meta">
-                    <span>By Maria Rodriguez</span>
-                    <span>5 min read</span>
-                </div>
-                <p class="blog-excerpt">
-                    Discover how personalized tutoring transformed one student's academic journey from struggling with basic concepts to excelling in advanced mathematics. This inspiring story showcases the power of dedicated mentorship and consistent support.
-                </p>
-                <a href="#" class="read-more">Read Full Story →</a>
-            </article>
+            <!-- Big Create Blog Button Section (Replacing Featured Post) -->
+            <div class="create-blog-container">
+                <h2>Share Your Story with Our Community</h2>
+                <p>Have an experience, insight, or success story to share? Create a blog post to inspire and connect with the Emanuel Learning Center community.</p>
+                <a href="blog.html" class="big-create-blog-button">Create Blog Post</a>
+            </div>
 
             <!-- Blog Grid -->
             <div class="blog-grid">
@@ -225,7 +241,7 @@
                 <article class="blog-card">
                     <img src="highlightstudy.png" alt="Students studying together" class="blog-image">
                     <div class="blog-content">
-                        <span class="category-tag tag-tutoring">Tutoring Tips</span>
+                        <span class="category-tag tag-student">Student</span>
                         <h3 class="blog-title">Effective Study Strategies for ESL Students</h3>
                         <div class="blog-meta">
                             <span>March 15, 2024</span>
@@ -246,7 +262,7 @@
                 <article class="blog-card">
                     <img src="communitystudy.png" alt="Community event" class="blog-image">
                     <div class="blog-content">
-                        <span class="category-tag tag-community">Community</span>
+                        <span class="category-tag tag-volunteer">Volunteer</span>
                         <h3 class="blog-title">Building Bridges: Our Community Initiative</h3>
                         <div class="blog-meta">
                             <span>March 10, 2024</span>
@@ -267,7 +283,7 @@
                 <article class="blog-card">
                     <img src="ana.jpg" alt="Student celebration" class="blog-image">
                     <div class="blog-content">
-                        <span class="category-tag tag-success">Success Stories</span>
+                        <span class="category-tag tag-parent">Parent</span>
                         <h3 class="blog-title">From Struggle to Strength: Ana's Story</h3>
                         <div class="blog-meta">
                             <span>March 5, 2024</span>
