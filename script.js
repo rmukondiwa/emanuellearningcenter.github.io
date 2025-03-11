@@ -111,14 +111,6 @@ document.addEventListener('DOMContentLoaded', function () {
     translatePage(currentLanguage);
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-    const form = document.querySelector(".blog-form");
-
-    form.addEventListener("submit", function (event) {
-        event.preventDefault(); // Prevent actual form submission
-        window.location.href = "blogposts.html"; // Redirect to blogposts.html
-    });
-});
 
 document.addEventListener('DOMContentLoaded', function() {
     const currentPage = window.location.pathname.split('/').pop();
@@ -132,4 +124,53 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+
+document.querySelector(".blog-form").addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const title = document.getElementById("blog-title").value;
+    const author = document.getElementById("author-name").value || "Anonymous";
+    const category = document.getElementById("category").value;
+    const content = document.getElementById("content").value;
+
+    const response = await fetch("/api/blogentries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title, author, category, content })
+    });
+
+    const result = await response.json();
+    alert(result.message);
+    window.location.href = "blogposts.html"; // Redirect to see the posts
+});
+
+async function fetchBlogPosts() {
+    const response = await fetch("/api/blogentries");
+    const posts = await response.json();
+
+    console.log("Fetched Blog Posts:", posts); // Debugging
+
+    const blogContainer = document.querySelector(".blog-grid");
+    blogContainer.innerHTML = ""; // Clear previous content
+
+    posts.forEach(post => {
+        const postElement = document.createElement("article");
+        postElement.classList.add("blog-card");
+        postElement.innerHTML = `
+            <div class="blog-content">
+                <span class="category-tag">${post.category}</span>
+                <h3 class="blog-title">${post.title}</h3>
+                <div class="blog-meta">
+                    <span>${new Date(post.date).toLocaleDateString()}</span>
+                    <span>by ${post.author}</span>
+                </div>
+                <p class="blog-excerpt">${post.content.substring(0, 150)}...</p>
+                <a href="#" class="read-more">Continue Reading →</a>
+            </div>
+        `;
+        blogContainer.appendChild(postElement);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", fetchBlogPosts);
 
