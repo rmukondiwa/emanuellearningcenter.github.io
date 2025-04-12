@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const multer = require('multer');
 const dotenv = require('dotenv');
 const path = require('path');
 
@@ -29,10 +30,29 @@ const blogSchema = new mongoose.Schema({
     category: String,
     author: { type: String, default: 'Anonymous' },
     votes: { type: Number, default: 0 },
-    createdAt: { type: Date, default: Date.now }
+    createdAt: { type: Date, default: Date.now },
+    approved: { type: Boolean, default: false },
+    imageUrl: String // ✅ Add this
 });
 
 const BlogEntry = mongoose.model('BlogEntry', blogSchema, "blogentries");
+
+// Configure storage for uploaded images
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/'); // Folder to save uploaded files
+    },
+    filename: function (req, file, cb) {
+      // Save the file with the original name plus a timestamp to avoid collisions
+      const uniqueName = Date.now() + '-' + file.originalname;
+      cb(null, uniqueName);
+    }
+  });
+  
+  const upload = multer({ storage: storage });
+  
+  // Serve static files from /uploads folder so frontend can access them
+  app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // 🚀 API to Retrieve All Blog Entries
 app.get('/api/blogentries', async (req, res) => {
@@ -61,23 +81,29 @@ app.get('/api/search', async (req, res) => {
 });
 
 // ✍ Submit a New Blog Entry
-app.post('/api/blogentries', async (req, res) => {
-    console.log("Received blog entry:", req.body); // Debugging
+app.post('/api/blogentries', upload.single('image'), async (req, res) => {
     const { title, content, category, author } = req.body;
+  
+    // Construct image URL if file was uploaded
+    const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
+  
     try {
-        const newEntry = await BlogEntry.create({
-            title,
-            content,
-            category,
-            author: author || 'Anonymous'
-        });
-        console.log("Saved to MongoDB:", newEntry); // Debugging
-        res.json({ success: true, message: "Blog entry submitted successfully!" });
+      await BlogEntry.create({
+        title,
+        content,
+        category,
+        author: author || 'Anonymous',
+        imageUrl,
+        approved: false // default to false so admin can approve it later
+      });
+  
+      res.json({ success: true, message: 'Blog submitted!' });
     } catch (error) {
-        console.error("Error saving blog:", error);
-        res.status(400).json({ success: false, error: error.message });
+      console.error('Error saving blog:', error);
+      res.status(500).json({ success: false, message: 'Failed to submit blog.', error: error.message });
     }
-});
+  });
+
 
 // 👍 Upvote a Blog Entry
 app.post('/api/blogentries/vote/:id', async (req, res) => {

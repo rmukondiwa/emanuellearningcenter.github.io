@@ -97,7 +97,7 @@
             <h1>Share Your Insights</h1>
             <p>Contribute to our community by submitting your blog post. Your insights could help fellow learners. Posts are reviewed by admins before publication.</p>
             
-            <form class="blog-form">
+            <form class="blog-form" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="blog-title">Blog Title</label>
                     <input type="text" id="blog-title" name="blog-title" required>
@@ -122,6 +122,13 @@
                     <label for="content">Blog Content</label>
                     <textarea id="content" name="content" placeholder="Write your content here..." required></textarea>
                 </div>
+
+                <!-- 👇 New image upload field -->
+                <label for="image">Upload a blog image:</label>
+                <input type="file" id="image" accept="image/*">
+
+                <!-- Optional preview -->
+                <img id="image-preview" src="#" style="display: none; max-width: 300px; margin-top: 10px;" />
 
                 <button type="submit" class="submit-button">Submit Now</button>
             </form>

@@ -128,20 +128,21 @@ document.addEventListener('DOMContentLoaded', function() {
 document.querySelector(".blog-form").addEventListener("submit", async function (event) {
     event.preventDefault();
 
-    const title = document.getElementById("blog-title").value;
-    const author = document.getElementById("author-name").value || "Anonymous";
-    const category = document.getElementById("category").value;
-    const content = document.getElementById("content").value;
+    const formData = new FormData();
+    formData.append("title", document.getElementById("blog-title").value);
+    formData.append("author", document.getElementById("author-name").value);
+    formData.append("category", document.getElementById("category").value);
+    formData.append("content", document.getElementById("content").value);
+    formData.append("image", document.getElementById("image").files[0]); // ✅ get file
 
     const response = await fetch("/api/blogentries", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, author, category, content })
+        body: formData // ✅ no need for headers
     });
 
     const result = await response.json();
     alert(result.message);
-    window.location.href = "blogposts.html"; // Redirect to see the posts
+    window.location.href = "blogposts.html";
 });
 
 async function fetchBlogPosts() {
@@ -174,3 +175,15 @@ async function fetchBlogPosts() {
 
 document.addEventListener("DOMContentLoaded", fetchBlogPosts);
 
+document.getElementById("image").addEventListener("change", function () {
+    const preview = document.getElementById("image-preview");
+    const file = this.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            preview.src = e.target.result;
+            preview.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+    }
+});
