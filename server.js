@@ -12,8 +12,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static files (HTML, CSS, JS) from the root directory
-app.use(express.static(__dirname));  
+
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
@@ -51,9 +50,7 @@ const storage = multer.diskStorage({
   
   const upload = multer({ storage: storage });
   
-  // Serve static files from /uploads folder so frontend can access them
-  app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
+ 
 // 🚀 API to Retrieve All Blog Entries
 app.get('/api/blogentries', async (req, res) => {
     try {
@@ -116,9 +113,36 @@ app.post('/api/blogentries/vote/:id', async (req, res) => {
     }
 });
 
-// 🌎 Serve index.html for all unknown routes (so it works with your existing files)
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+
+ // Serve static files from /uploads folder so frontend can access them
+ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+  // Serve static files (HTML, CSS, JS) from the root directory
+app.use(express.static(__dirname));  
+
+// Get unapproved blog entries
+app.get('/api/admin/blogentries', async (req, res) => {
+    try {
+      const unapproved = await BlogEntry.find({ approved: false });
+      res.json(unapproved);
+    } catch (error) {
+      console.error("Failed to fetch unapproved posts:", error);
+      res.status(500).json({ error: "Failed to load blog posts" });
+    }
+  });
+  app.delete('/api/admin/deny/:id', async (req, res) => {
+    try {
+      await BlogEntry.findByIdAndDelete(req.params.id);
+      res.json({ success: true, message: "Post denied and deleted." });
+    } catch (error) {
+      console.error("Error denying post:", error);
+      res.status(500).json({ success: false, error: "Failed to deny blog post." });
+    }
+  });
+  
+// Only serve index.html for frontend routes, not for API
+app.get(/^\/(?!api).*/, (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Start Server
