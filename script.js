@@ -1,3 +1,4 @@
+let approvedPostsGlobal = [];
 document.addEventListener('DOMContentLoaded', function () {
     const languageToggle = document.getElementById('language-toggle');
     const translations = {
@@ -107,6 +108,9 @@ document.addEventListener('DOMContentLoaded', function () {
         languageToggle.textContent = currentLanguage === 'en' ? 'Español' : 'English';
     });
 
+    console.log("✅ DOM fully loaded");
+    fetchBlogPosts();
+
     // Initial page load translation based on current language
     translatePage(currentLanguage);
 });
@@ -144,25 +148,64 @@ document.querySelector(".blog-form").addEventListener("submit", async function (
     alert(result.message);
     window.location.href = "blogposts.html";
 });
+function showModal(post) {
+    const modal = document.getElementById("blog-modal");
+    document.getElementById("modal-image").src = post.imageUrl || "";
+    document.getElementById("modal-title").textContent = post.title;
+    document.getElementById("modal-author").textContent = `By ${post.author}`;
+    document.getElementById("modal-content").textContent = post.content;
+
+    modal.style.display = "flex";
+
+    // Close button handler
+    document.querySelector(".close-btn").onclick = function () {
+        modal.style.display = "none";
+    };
+
+    // Close if clicking outside modal content
+    window.onclick = function (event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    };
+}
 
 async function fetchBlogPosts() {
     const response = await fetch("/api/blogentries");
     const posts = await response.json();
+    console.log("Fetched Blog Posts:", posts);
 
-    console.log("Fetched Blog Posts:", posts); // Debugging
+    // Save globally
+    approvedPostsGlobal = posts.filter(post => post.approved === true);
+    
+    renderBlogPosts(approvedPostsGlobal);
+    document.querySelectorAll(".category-tag").forEach(tag => {
+        tag.addEventListener("click", function () {
+            const selectedCategory = this.getAttribute("data-category");
+            const sortedPosts = [...approvedPostsGlobal].sort((a, b) => {
+                if (a.category === selectedCategory && b.category !== selectedCategory) return -1;
+                if (a.category !== selectedCategory && b.category === selectedCategory) return 1;
+                return 0;
+            });
+            renderBlogPosts(sortedPosts);
+        });
+    });
+}
 
+function renderBlogPosts(posts) {
     const blogContainer = document.querySelector(".blog-grid");
-    blogContainer.innerHTML = ""; // Clear previous content
+    blogContainer.innerHTML = "";
 
     posts.forEach(post => {
         const postElement = document.createElement("article");
         postElement.classList.add("blog-card");
         postElement.innerHTML = `
             <div class="blog-content">
-                <span class="category-tag">${post.category}</span>
+                ${post.imageUrl ? `<img src="${post.imageUrl}" alt="Blog image" class="blog-image">` : ""}
+                <span class="category-tag tag-${post.category.toLowerCase()} capitalize">${post.category}</span>
                 <h3 class="blog-title">${post.title}</h3>
                 <div class="blog-meta">
-                    <span>${new Date(post.date).toLocaleDateString()}</span>
+                    <span>${new Date(post.createdAt).toLocaleDateString()}</span>
                     <span>by ${post.author}</span>
                 </div>
                 <p class="blog-excerpt">${post.content.substring(0, 150)}...</p>
@@ -170,10 +213,20 @@ async function fetchBlogPosts() {
             </div>
         `;
         blogContainer.appendChild(postElement);
+
+        postElement.querySelector(".read-more").addEventListener("click", function (e) {
+            e.preventDefault();
+            showModal(post);
+        });
     });
+
+    if (posts.length === 0) {
+        blogContainer.innerHTML = "<p>No blog posts available yet. Check back soon!</p>";
+    }
 }
 
 document.addEventListener("DOMContentLoaded", fetchBlogPosts);
+
 
 document.getElementById("image").addEventListener("change", function () {
     const preview = document.getElementById("image-preview");
@@ -186,4 +239,10 @@ document.getElementById("image").addEventListener("change", function () {
         };
         reader.readAsDataURL(file);
     }
+
 });
+
+
+
+
+

@@ -366,3 +366,28 @@ footer {
 .language-button:hover {
     background-color: #918874;
 }
+
+.category-tag {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 999px; /* pill shape */
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.tag-parent {
+    background-color: #dbeafe; /* soft blue */
+    color: #1e40af; /* bold blue text */
+}
+
+.tag-volunteer {
+    background-color: #fef3c7; /* soft yellow */
+    color: #92400e; /* brown text */
+}
+
+.tag-student {
+    background-color: #dcfce7; /* soft green */
+    color: #166534; /* green text */
+}

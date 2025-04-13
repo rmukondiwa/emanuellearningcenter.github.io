@@ -130,6 +130,23 @@ app.get('/api/admin/blogentries', async (req, res) => {
       res.status(500).json({ error: "Failed to load blog posts" });
     }
   });
+  app.post('/api/admin/approve/:id', async (req, res) => {
+    try {
+      const updated = await BlogEntry.findByIdAndUpdate(req.params.id, {
+        approved: true
+      });
+  
+      if (!updated) {
+        return res.status(404).json({ success: false, message: "Post not found" });
+      }
+  
+      res.json({ success: true, message: "Post approved." });
+    } catch (error) {
+      console.error("Error approving post:", error);
+      res.status(500).json({ success: false, message: "Failed to approve post." });
+    }
+  });
+  
   app.delete('/api/admin/deny/:id', async (req, res) => {
     try {
       await BlogEntry.findByIdAndDelete(req.params.id);
